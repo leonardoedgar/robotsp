@@ -1,5 +1,6 @@
 # RoboTSP
-- git: {local-name: robotsp, uri: 'https://github.com/crigroup/robotsp.git', version: master}
+- git: {local-name: robotsp, uri: 'https://github.com/leonardoedgar/robotsp.git', version: feat-6dpose}
 # Dependencies
-- git: {local-name: raveutils, uri: 'https://github.com/crigroup/raveutils.git', version: master}
+- git: {local-name: raveutils, uri: 'https://github.com/leonardoedgar/raveutils.git', version: feat-rave-0.63.2}
 - git: {local-name: openrave_catkin, uri: 'https://github.com/crigroup/openrave_catkin.git', version: master}
+- git: {local-name: lkh, uri: 'https://github.com/crigroup/lkh.git', version: master}
