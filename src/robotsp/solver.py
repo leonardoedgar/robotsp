@@ -104,11 +104,14 @@ def compute_robot_configurations(robot, targets, params, qstart=None):
   configurations = []
   if qstart is not None:
     configurations.append([qstart])
-  for i,ray in enumerate(targets):
-    newpos = ray.pos() - params.standoff*ray.dir()
-    newray = orpy.Ray(newpos, ray.dir())
-    solutions = ru.kinematics.find_ik_solutions(robot, newray, params.iktype,
-                                  collision_free=True, freeinc=params.step_size)
+  for i, target in enumerate(targets):
+    if type(target) is orpy.Ray:
+      newpos = ray.pos() - params.standoff*ray.dir()
+      newray = orpy.Ray(newpos, ray.dir())
+      solutions = ru.kinematics.find_ik_solutions(robot, newray, params.iktype,
+        collision_free=True, freeinc=params.step_size)
+    else:
+      solutions = ru.kinematics.find_ik_solutions(robot, target, params.iktype)
     if len(solutions) == 0:
       raise Exception('Failed to find IK solution for target %d' % i)
     configurations.append(solutions)
@@ -222,7 +225,7 @@ def robotsp_solver(robot, targets, params):
   robot: orpy.robot
     OpenRAVE robot
   targets: list
-    List of rays (`orpy.Ray`)
+    List of rays (`orpy.Ray`) or homogeneous transformations (6D pose)
   """
   if not params.initialized():
     raise ValueError('SolverParameters has not been initialized')
